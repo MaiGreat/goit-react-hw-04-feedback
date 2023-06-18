@@ -9,33 +9,50 @@ const App = () => {
   const [good, setGoodFeedback] = useState(0);
   const [neutral, setNeutralFeedback] = useState(0);
   const [bad, setBadFeedback] = useState(0);
+  
 
-  const useHandleClickBtn = (e) => {
+  const handleClickBtn = (e) => {
     const nameBtn = e.target.textContent;
-    useState((prevState) => {
-      return {
-        [nameBtn]: prevState[nameBtn] + 1,
-      };
-    },
-  );
+    switch (nameBtn) {
+      case "good":
+        setGoodFeedback((prevState) => prevState + 1);
+        break;
+      case "neutral":
+        setNeutralFeedback((prevState) => prevState + 1);
+        break;
+      case "bad":
+        setBadFeedback((prevState) => prevState + 1);
+        break;
+      default:
+        break;
+    }
   };
 
+  const countTotalFeedback = () => {
+  return good + neutral + bad;
+  };
+
+  const countPositivePercentage = () => {
+    return Math.round(good * 100 / countTotalFeedback());
+  }
+
+  
   return (
       <div > 
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={Object.keys(this.state)}
-            onLeaveFeedback={this.handleClickBtn}
+            options={['good', 'neutral', 'bad']}
+            onLeaveFeedback={handleClickBtn}
             />
           </Section>
         <Section title="Statistics">
-          {this.countTotalFeedback() !== 0 ? 
+          {countTotalFeedback() !== 0 ? 
             (<Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={this.countTotalFeedback()}
-            positisveFeedback={this.countPositivePercentage()}
+            total={countTotalFeedback()}
+            positisveFeedback={countPositivePercentage()}
             />
             ) : (<Notification message="There is no feedback!" />
           )}
