@@ -1,0 +1,19 @@
+.feedback {
+    padding: 15px;
+}
+
+
+.feedback-list {
+    list-style-type: none;
+}
+
+.text {
+    margin-left: 30px;
+    font-style: oblique;
+    font-size: large;
+}
+
+.list-text {
+    font-size: xx-large;
+    font-weight: 500;
+}
